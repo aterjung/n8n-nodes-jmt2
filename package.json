@@ -1,0 +1,24 @@
+{
+  "name": "n8n-nodes-jmt2",
+  "version": "0.1.1",
+  "description": "n8n node to connect to JMT2 API (customers, projects, tasks, units)",
+  "keywords": ["n8n-community-node-package"],
+  "license": "MIT",
+  "author": "JMT2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "n8n": {
+    "n8nNodesApiVersion": 1
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "n8n-workflow": "^1.44.1"
+  }
+}
