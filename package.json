@@ -14,7 +14,7 @@
           "dist/credentials/Jmt2Api.credentials.js"
       ],
       "nodes": [
-          "dist/nodes/Jmt2Api.node.js"
+          "dist/nodes/Jmt2.node.js"
       ]
   },
   "scripts": {
