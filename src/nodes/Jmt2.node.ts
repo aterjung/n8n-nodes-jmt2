@@ -69,6 +69,7 @@ export class Jmt2 implements INodeType {
 					},
 				options: [
 					{ displayName: 'ID', name: 'id', type: 'number', default: 0 },
+					{ displayName: 'Asana ID', name: 'asana_id', type: 'string', default: '' },
 					{ displayName: 'Customer ID', name: 'customer_id', type: 'number', default: 0 },
 					{ displayName: 'Project ID', name: 'project_id', type: 'number', default: 0 },
 					{ displayName: 'Task ID', name: 'task_id', type: 'number', default: 0 },
@@ -91,6 +92,7 @@ export class Jmt2 implements INodeType {
 					{ displayName: 'Project ID', name: 'project_id', type: 'number', default: 0 },
 					{ displayName: 'Title', name: 'title', type: 'string', default: ''},
 					{ displayName: 'Description', name: 'description', type: 'string', default: '' },
+					{ displayName: 'Asana ID', name: 'asana_id', type: 'string', default: '' },
 					{ displayName: 'Type', name: 'type', type: 'options', default: 0, options: [ {name:'Time-based', value: 0}, {name:'Fixed price', value: 1} ] },
 					{ displayName: 'Status', name: 'status', type: 'number', default: 0 },
 					{ displayName: 'Predicted Duration', name: 'duration_predicted', type: 'number', default: 0 },
