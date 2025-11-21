@@ -9,7 +9,13 @@
   "types": "dist/index.d.ts",
   "files": ["dist"],
   "n8n": {
-    "n8nNodesApiVersion": 1
+    "n8nNodesApiVersion": 1,
+      "credentials": [
+          "dist/credentials/Jmt2Api.credentials.js"
+      ],
+      "nodes": [
+          "dist/nodes/Jmt2Api.node.js"
+      ]
   },
   "scripts": {
     "build": "tsc"
