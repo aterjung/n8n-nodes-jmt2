@@ -88,8 +88,8 @@ export class Jmt2 implements INodeType {
 				default: {},
 				displayOptions: { show: { resource: ['task'], operation: ['create'] } },
 				options: [
-					{ displayName: 'Project ID', name: 'project_id', type: 'number', default: 0, required: true },
-					{ displayName: 'Title', name: 'title', type: 'string', default: '', required: true },
+					{ displayName: 'Project ID', name: 'project_id', type: 'number', default: 0 },
+					{ displayName: 'Title', name: 'title', type: 'string', default: ''},
 					{ displayName: 'Description', name: 'description', type: 'string', default: '' },
 					{ displayName: 'Type', name: 'type', type: 'options', default: 0, options: [ {name:'Time-based', value: 0}, {name:'Fixed price', value: 1} ] },
 					{ displayName: 'Status', name: 'status', type: 'number', default: 0 },
@@ -106,7 +106,7 @@ export class Jmt2 implements INodeType {
 				default: {},
 				displayOptions: { show: { resource: ['unit'], operation: ['create'] } },
 				options: [
-					{ displayName: 'Task ID', name: 'task_id', type: 'number', default: 0, required: true },
+					{ displayName: 'Task ID', name: 'task_id', type: 'number', default: 0 },
 					{ displayName: 'Info', name: 'info', type: 'string', default: '' },
 					{ displayName: 'Start Time', name: 'start_time', type: 'string', default: '', description: 'ISO date-time' },
 					{ displayName: 'Stop Time', name: 'stop_time', type: 'string', default: '', description: 'ISO date-time' },
@@ -137,23 +137,44 @@ export class Jmt2 implements INodeType {
 				}
 			}
 
-			if (operation === 'create') {
-				let endpoint = '';
-				let body: IDataObject = {};
-				if (resource === 'task') {
-					endpoint = '/tasks';
-					body = this.getNodeParameter('taskFields', i, {}) as IDataObject;
-				}
-				if (resource === 'unit') {
-					endpoint = '/units';
-					body = this.getNodeParameter('unitFields', i, {}) as IDataObject;
-				}
-				if (!endpoint) {
-					throw new Error('Create operation only supported for Task and Unit');
-				}
-				const data = await apiRequest.call(this, 'POST', endpoint, body);
-				returnData.push({ json: data });
-			}
+            if (operation === 'create') {
+                let endpoint = '';
+                let body: IDataObject = {}; // <<< wichtig: als IDataObject typisieren
+
+                if (resource === 'task') {
+                    endpoint = '/tasks';
+                    const taskFields = this.getNodeParameter('taskFields', i, {}) as IDataObject;
+
+                    // je nach Logik: 0 = "nicht gesetzt"
+                    if (taskFields.project_id === undefined || taskFields.project_id === 0) {
+                        throw new Error('Project ID is required when creating a task');
+                    }
+                    if (!taskFields.title) {
+                        throw new Error('Title is required when creating a task');
+                    }
+
+                    body = taskFields;
+                }
+
+                if (resource === 'unit') {
+                    endpoint = '/units';
+                    const unitFields = this.getNodeParameter('unitFields', i, {}) as IDataObject;
+
+                    if (unitFields.task_id === undefined || unitFields.task_id === 0) {
+                        throw new Error('Task ID is required when creating a unit');
+                    }
+
+                    body = unitFields;
+                }
+
+                if (!endpoint) {
+                    throw new Error('Create operation only supported for Task and Unit');
+                }
+
+                const data = await apiRequest.call(this, 'POST', endpoint, body);
+                returnData.push({ json: data });
+            }
+
 		}
 
 		return [returnData];
