@@ -24,6 +24,7 @@ export class Jmt2 implements INodeType {
 		defaults: {
 			name: 'JMT2',
 		},
+        usableAsTool: true,
 		inputs: ['main'],
 		outputs: ['main'],
 		credentials: [
