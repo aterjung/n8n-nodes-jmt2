@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-jmt2",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n node to connect to JMT2 API (customers, projects, tasks, units)",
   "keywords": ["n8n-community-node-package"],
   "license": "MIT",
@@ -15,6 +15,9 @@
       ],
       "nodes": [
           "dist/nodes/Jmt2.node.js"
+      ],
+      "tools": [
+        "dist/tools/Jmt2.tool.js"
       ]
   },
   "scripts": {
